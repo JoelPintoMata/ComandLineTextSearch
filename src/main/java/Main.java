@@ -1,3 +1,4 @@
+import javafx.util.Pair;
 import model.FileWord;
 
 import java.io.*;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -28,19 +30,26 @@ public class Main {
 //            result2.entrySet().forEach(System.out::println);
 
             List<Map<String, Long>> result3 = Arrays.stream(args[0].split("[ ]")).map(x -> {
-                System.out.println(x);
+//                System.out.println(x);
                 return wordsList.stream().filter(y -> x.equals(y.getWord())).collect(Collectors.groupingBy(FileWord::getFilename, Collectors.counting()));
             }).collect(Collectors.toList());
 //            result3.forEach(System.out::println);
 
-            Map<Map<String, Long>, Long> result4 = Arrays.stream(args[0].split("[ ]")).map(x -> {
+            Map<Map<String, Long>, List<Map<String, Long>>> result4 = Arrays.stream(args[0].split("[ ]")).map(x -> {
                 return wordsList.stream().filter(y -> x.equals(y.getWord())).collect(Collectors.groupingBy(FileWord::getFilename, Collectors.counting()));
-            }).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+            }).collect(Collectors.groupingBy(Function.identity()));
+
             result4.forEach((x, y) -> {
-                x.values().forEach(System.out::println);
-                System.out.println(x);
-                System.out.println(y);
+//                x.values().forEach(System.out::println);
+//                System.out.println(x);
+//                System.out.println(y);
             });
+
+            System.out.println("result5");
+            List<FileWord> result5 = Arrays.stream(args[0].split("[ ]")).map(x -> {
+                return wordsList.stream().filter(y -> x.equals(y.getWord())).collect(Collectors.toList());
+            }).flatMap(y -> y.stream()).collect(Collectors.toList());
+            System.out.println("result5");
 
         } catch (IOException e) {
             e.printStackTrace();
