@@ -1,17 +1,25 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class FileWord {
 
-    private final String filename;
+    private final Set<String> filenameSet;
     private final String word;
+    private int count;  // number of occurrences
 
     public FileWord(String filename, String word) {
-        this.filename = filename;
+        this.filenameSet = new HashSet<>();
+        this.filenameSet.add(filename);
         this.word = word;
+        this.count = 1;
     }
 
-    public String getFilename() {
-        return filename;
+    public Set<String> getFilenameList() {
+        return this.filenameSet;
     }
 
     public String getWord() {
@@ -20,6 +28,14 @@ public class FileWord {
 
     @Override
     public String toString() {
-        return "Filename: " + filename + "word: " + word;
+        return "Filename: " + filenameSet.stream().map(x -> " x ") + "word: " + word;
+    }
+
+    public void addFilename(String filename) {
+        this.filenameSet.add(filename);
+    }
+
+    public void incCount() {
+        this.count++;
     }
 }
