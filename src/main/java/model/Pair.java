@@ -1,17 +1,20 @@
 package model;
 
 
+/**
+ *
+ */
 public class Pair {
 
-    private final String word;
-    private final String filename;
+    private final String key;
+    private final String value;
 
-    public Pair(String word, String filename) {
-        this.word = word;
-        this.filename = filename;
+    public Pair(String key, String value) {
+        this.key = key;
+        this.value = value;
     }
 
-    public String getFilename() {
-        return this.filename;
+    public String getValue() {
+        return this.value;
     }
 }
