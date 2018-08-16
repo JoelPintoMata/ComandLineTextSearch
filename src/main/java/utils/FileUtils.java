@@ -13,12 +13,12 @@ public class FileUtils {
      * @return a list of text file names from the project root
      * @param location the files location
      */
-    public static List<String> getFiles(String location) {
+    public static List<String> getFiles(String location, String type) {
         File f = new File(location);
 
         FilenameFilter textFilter = new FilenameFilter() {
             public boolean accept(File dir, String name) {
-                return name.toLowerCase().endsWith(".txt");
+                return name.toLowerCase().endsWith(type);
             }
         };
 

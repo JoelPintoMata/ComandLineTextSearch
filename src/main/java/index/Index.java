@@ -38,7 +38,10 @@ public class Index {
      * @return a list of ordered results describing both the files and the match percentage
      */
     public List<String> search(String query) {
+//        get the query individual terms
         String[] queryTermsArray = query.split("[ ]");
+
+//        create a map of the query individual terms for fast search
         Map<String, String> queryTermsMap = new HashMap<>();
         Arrays.stream(queryTermsArray).forEach(queryTerm -> {
             queryTerm = queryTerm.toLowerCase();

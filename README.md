@@ -17,6 +17,6 @@ $ mvn package
 
 ### To run:
 ```bash
-$ mvn compile && mvn exec:java -Dexec.mainClass="Main" -Dexec.args="<relative path to project root>"
+$ mvn compile && mvn exec:java -Dexec.mainClass="Main" -Dexec.args="<relative_path_to_project_root>"
 ```
 ##

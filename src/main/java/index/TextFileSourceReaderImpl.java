@@ -7,12 +7,14 @@ import java.util.*;
 
 public class TextFileSourceReaderImpl implements SourceReader {
 
+    private final String TYPE = ".txt";
+
     private Index index;
     private String location;
 
     @Override
     public void index() {
-        List<String> filenames = FileUtils.getFiles(location);
+        List<String> filenames = FileUtils.getFiles(location, TYPE);
         for (String filename : filenames) {
             try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
                 String line = br.readLine();
