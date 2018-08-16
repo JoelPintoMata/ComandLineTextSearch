@@ -1,16 +1,12 @@
-import javafx.util.Pair;
 import model.FileWord;
+import model.Pair;
 
 import java.io.*;
 import java.util.*;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main {
 
-    private static List<FileWord> wordsList = new ArrayList();
     private static TreeMap<String, FileWord> data = new TreeMap<>( );
 
     public static void main(String[] args) {
@@ -19,47 +15,20 @@ public class Main {
                 readFile(s);
             }
 
-//            List<FileWord> xxx = wordsList.stream().filter(x -> args[0].contains(x.getWord())).collect(Collectors.toList());
-////            xxx.stream().forEach(x -> System.out.println(x.getWord()));
-//
-//            Map<FileWord, Long> result = wordsList.stream().filter(x -> args[0].contains(x.getWord())).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-////            System.out.println(result);
-//
-//            Map<String, Long> result2 = wordsList.stream().filter(x -> args[0].contains(x.getWord())).collect(Collectors.groupingBy(FileWord::getFilename, Collectors.counting()));
-////            result2.entrySet().forEach(System.out::println);
-//
-//            List<Map<String, Long>> result3 = Arrays.stream(args[0].split("[ ]")).map(x -> {
-////                System.out.println(x);
-//                return wordsList.stream().filter(y -> x.equals(y.getWord())).collect(Collectors.groupingBy(FileWord::getFilename, Collectors.counting()));
-//            }).collect(Collectors.toList());
-////            result3.forEach(System.out::println);
-//
-//            Map<Map<String, Long>, List<Map<String, Long>>> result4 = Arrays.stream(args[0].split("[ ]")).map(x -> {
-//                return wordsList.stream().filter(y -> x.equals(y.getWord())).collect(Collectors.groupingBy(FileWord::getFilename, Collectors.counting()));
-//            }).collect(Collectors.groupingBy(Function.identity()));
-//
-//            result4.forEach((x, y) -> {
-////                x.values().forEach(System.out::println);
-////                System.out.println(x);
-////                System.out.println(y);
-//            });
-//
-//            System.out.println("result5");
-//            List<FileWord> result5 = Arrays.stream(args[0].split("[ ]")).map(x -> {
-//                return wordsList.stream().filter(y -> x.equals(y.getWord())).collect(Collectors.toList());
-//            }).flatMap(y -> y.stream()).collect(Collectors.toList());
-//            System.out.println("result5");
+            String[] queryWordsArray = args[0].split("[ ]");
+            System.out.println("result7");
+            List<FileWord> fileWordList = Arrays.stream(args[0].split("[ ]")).map(x ->
+                    data.values().stream().filter(y -> x.toLowerCase().equals(y.getWord())).collect(Collectors.toList())
+            ).flatMap(Collection::stream).collect(Collectors.toList());
 
+            List<Pair> wordFilenamePairList = fileWordList.stream().map(fileWord ->
+                    fileWord.getFilenameList().stream().map(filename -> new Pair(fileWord.getWord(), filename)).collect(Collectors.toList())
+            ).flatMap(Collection::stream).collect(Collectors.toList());
+//
+            Map<String, Long> wordsFoundPerFilenameMap = wordFilenamePairList
+                    .stream().collect(Collectors.groupingBy(Pair::getFilename, Collectors.counting()));
 
-            System.out.println("result6");
-            List<FileWord> result6 = Arrays.stream(args[0].split("[ ]")).map(x -> {
-                return data.values().stream().filter(y -> x.toLowerCase().equals(y.getWord())).collect(Collectors.toList());
-            }).flatMap(y -> y.stream()).collect(Collectors.toList());
-
-            result6.forEach(x -> {
-                System.out.println(x);
-                x.getFilenameList().stream().forEach(System.out::println);
-            });
+            wordsFoundPerFilenameMap.entrySet().stream().forEach(x -> System.out.println(x.getKey() + ": " + x.getValue() * 100 / queryWordsArray.length));
         } catch (IOException e) {
             e.printStackTrace();
         }
