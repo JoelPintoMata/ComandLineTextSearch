@@ -4,7 +4,7 @@ but they're the best we can do in text.  A graphics file illustrating
 the character set should be available from the same archive as this
 file.
 
-Hex Description                 Hex Description magna
+Hex Description                 Hex Description
 
 20  SPACE
 21  EXCLAMATION MARK            A1  INVERTED EXCLAMATION MARK

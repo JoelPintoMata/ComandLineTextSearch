@@ -11,9 +11,10 @@ public class FileUtils {
     /**
      * Retrieves a list of text file names from the project root
      * @return a list of text file names from the project root
+     * @param location the files location
      */
-    public static List<String> getFiles() {
-        File f = new File(System.getProperty("user.dir"));
+    public static List<String> getFiles(String location) {
+        File f = new File(location);
 
         FilenameFilter textFilter = new FilenameFilter() {
             public boolean accept(File dir, String name) {

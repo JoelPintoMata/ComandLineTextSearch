@@ -12,9 +12,14 @@ public interface SourceReader {
     void index();
 
     /**
-     * Sets this source indexew
-     * @param index
+     * Sets this source index
+     * @param index an index
      */
     void setIndex(Index index);
 
+    /**
+     * Sets this source location
+     * @param location an location
+     */
+    void setSourceLocation(String location);
 }

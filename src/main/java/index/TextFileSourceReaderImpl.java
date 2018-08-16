@@ -8,10 +8,12 @@ import java.util.*;
 public class TextFileSourceReaderImpl implements SourceReader {
 
     private Index index;
+    private String location;
 
     @Override
     public void index() {
-        for (String filename : FileUtils.getFiles()) {
+        List<String> filenames = FileUtils.getFiles(location);
+        for (String filename : filenames) {
             try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
                 String line = br.readLine();
 
@@ -23,10 +25,16 @@ public class TextFileSourceReaderImpl implements SourceReader {
                 e.printStackTrace();
             }
         }
+        System.out.println(filenames.size() + " files read in directory " + location);
     }
 
     @Override
     public void setIndex(Index index) {
         this.index = index;
+    }
+
+    @Override
+    public void setSourceLocation(String location) {
+        this.location = location;
     }
 }
