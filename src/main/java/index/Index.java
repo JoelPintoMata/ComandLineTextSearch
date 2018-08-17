@@ -55,7 +55,7 @@ public class Index {
         List<IndexElem> termsFoundInFilesList = this.index.values().stream().filter(y -> queryTermsMap.containsKey(y.getWord())).collect(Collectors.toList());
 
         List<Pair> termsPerFilePairList = termsFoundInFilesList.stream().map(fileWord ->
-                fileWord.getFilenameList().stream().map(filename -> new Pair(fileWord.getWord(), filename)).collect(Collectors.toList())
+                fileWord.getResourceList().stream().map(filename -> new Pair(fileWord.getWord(), filename)).collect(Collectors.toList())
         ).flatMap(Collection::stream).collect(Collectors.toList());
 //
         Map<String, Long> termsFoundPerFileMap = termsPerFilePairList

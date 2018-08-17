@@ -9,16 +9,21 @@ import java.util.Set;
  */
 public class IndexElem {
 
-    private final Set<String> filenameSet = new HashSet<>();
+    private final Set<String> resourceSet = new HashSet<>();
     private final String word;
 
     public IndexElem(String filename, String word) {
-        this.filenameSet.add(filename);
+        this.resourceSet.add(filename);
         this.word = word;
     }
 
-    public Set<String> getFilenameList() {
-        return this.filenameSet;
+    /**
+     * Gets the list of resource names where a word is found
+     * Note: for immutability purposes this method returns a clone
+     * @return a list of resource names where a word is found
+     */
+    public Set<String> getResourceList() {
+        return (HashSet) ((HashSet) resourceSet).clone();
     }
 
     public String getWord() {
@@ -26,6 +31,6 @@ public class IndexElem {
     }
 
     public void addFilename(String filename) {
-        this.filenameSet.add(filename);
+        this.resourceSet.add(filename);
     }
 }
