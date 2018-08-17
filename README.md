@@ -15,8 +15,7 @@ $ mvn package
 $ mvn package
 ```
 
-### To run:
+### To run the latest version:
 ```bash
-$ mvn compile && mvn exec:java -Dexec.mainClass="Main" -Dexec.args="<relative_path_to_project_root>"
+$ mvn compile && mvn package && java -jar ./target/*.jar .
 ```
-##
