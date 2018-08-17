@@ -26,7 +26,7 @@ public class TextFileSourceReaderImpl implements SourceReader {
                     Arrays.stream(line.split("[,. ]")).forEach(term -> this.index.index(term, filename));
                     line = br.readLine();
                 }
-            } catch (Exception e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
