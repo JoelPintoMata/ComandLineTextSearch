@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
 
 
 /**
- * Concrete index implementation claass
+ * Concrete index implementation class
  */
-public class Index {
+public class Indexer {
 
-    private static TreeMap<String, IndexElem> index = new TreeMap<>();
+    private static Map<String, IndexElem> index = new TreeMap<>();
 
     /**
      * Indexes new data
@@ -67,12 +67,6 @@ public class Index {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Calcu
-     * @param value
-     * @param queryTermsArray
-     * @return
-     */
     private long calculatesPercentage(Long value, String[] queryTermsArray) {
         return value * 100 / queryTermsArray.length;
     }

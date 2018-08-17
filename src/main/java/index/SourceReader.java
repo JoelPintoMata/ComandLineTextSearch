@@ -12,10 +12,10 @@ public interface SourceReader {
     void index();
 
     /**
-     * Sets this source index
-     * @param index an index
+     * Sets this source indexer
+     * @param indexer an indexer
      */
-    void setIndex(Index index);
+    void setIndexer(Indexer indexer);
 
     /**
      * Sets this source location

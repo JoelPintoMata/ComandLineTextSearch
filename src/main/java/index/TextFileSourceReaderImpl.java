@@ -12,7 +12,7 @@ public class TextFileSourceReaderImpl implements SourceReader {
 
     private final String TYPE = ".txt";
 
-    private Index index;
+    private Indexer indexer;
     private String location;
 
     @Override
@@ -23,7 +23,7 @@ public class TextFileSourceReaderImpl implements SourceReader {
                 String line = br.readLine();
 
                 while (line != null) {
-                    Arrays.stream(line.split("[,. ]")).forEach(term -> this.index.index(term, filename));
+                    Arrays.stream(line.split("[,. ]")).forEach(term -> this.indexer.index(term, filename));
                     line = br.readLine();
                 }
             } catch (IOException e) {
@@ -34,8 +34,8 @@ public class TextFileSourceReaderImpl implements SourceReader {
     }
 
     @Override
-    public void setIndex(Index index) {
-        this.index = index;
+    public void setIndexer(Indexer indexer) {
+        this.indexer = indexer;
     }
 
     @Override
