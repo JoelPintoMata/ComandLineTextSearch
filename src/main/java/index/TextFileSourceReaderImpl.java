@@ -5,6 +5,9 @@ import utils.FileUtils;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Concrete implementation for a text file type data source reader
+ */
 public class TextFileSourceReaderImpl implements SourceReader {
 
     private final String TYPE = ".txt";

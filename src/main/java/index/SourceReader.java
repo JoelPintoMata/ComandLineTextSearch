@@ -2,7 +2,7 @@ package index;
 
 
 /**
- *
+ * Data source reader interface
  */
 public interface SourceReader {
 

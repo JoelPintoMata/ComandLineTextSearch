@@ -5,10 +5,14 @@ import index.Index;
 import java.util.Scanner;
 
 /**
- *
+ * Commandline text search main class
  */
 public class Main {
 
+    /**
+     * Commandline text search main method
+     * @param args the initial arguments
+     */
     public static void main(String[] args) {
         if (args.length == 0) {
             throw new IllegalArgumentException("No directory given to index.");

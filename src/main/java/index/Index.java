@@ -6,6 +6,10 @@ import model.Pair;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
+/**
+ * Concrete index implementation claass
+ */
 public class Index {
 
     private static TreeMap<String, IndexElem> index = new TreeMap<>();
@@ -16,7 +20,7 @@ public class Index {
      * @param source the term source
      */
     public static void index(String term, String source) {
-        // convert to lower case.
+//        convert to lower case.
         term = term.toLowerCase();
 
         if(term.length() == 0)
@@ -48,28 +52,28 @@ public class Index {
             queryTermsMap.put(queryTerm, queryTerm);
         });
 
-        List<IndexElem> fileWordList = this.index.values().stream().filter(y -> queryTermsMap.containsKey(y.getWord())).collect(Collectors.toList());
+        List<IndexElem> termsFoundInFilesList = this.index.values().stream().filter(y -> queryTermsMap.containsKey(y.getWord())).collect(Collectors.toList());
 
-        List<Pair> wordFilenamePairList = fileWordList.stream().map(fileWord ->
+        List<Pair> termsPerFilePairList = termsFoundInFilesList.stream().map(fileWord ->
                 fileWord.getFilenameList().stream().map(filename -> new Pair(fileWord.getWord(), filename)).collect(Collectors.toList())
         ).flatMap(Collection::stream).collect(Collectors.toList());
 //
-        Map<String, Long> wordsFoundPerFilenameMap = wordFilenamePairList
+        Map<String, Long> termsFoundPerFileMap = termsPerFilePairList
                 .stream().collect(Collectors.groupingBy(Pair::getValue, Collectors.counting()));
 
-        return wordsFoundPerFilenameMap.entrySet().stream().map(x -> new Pair(x.getKey(), Long.toString(calculateRank(x.getValue(), queryTermsArray))))
+        return termsFoundPerFileMap.entrySet().stream().map(x -> new Pair(x.getKey(), Long.toString(calculatesPercentage(x.getValue(), queryTermsArray))))
                 .sorted(Comparator.comparing(x -> x.getValue()))
                 .map(pair -> pair.getKey() + ": " + pair.getValue() + "%")
                 .collect(Collectors.toList());
     }
 
     /**
-     *
+     * Calcu
      * @param value
      * @param queryTermsArray
      * @return
      */
-    private long calculateRank(Long value, String[] queryTermsArray) {
+    private long calculatesPercentage(Long value, String[] queryTermsArray) {
         return value * 100 / queryTermsArray.length;
     }
 }

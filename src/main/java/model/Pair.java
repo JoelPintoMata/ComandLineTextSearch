@@ -2,7 +2,7 @@ package model;
 
 
 /**
- *
+ * <Key, Value> pair class
  */
 public class Pair {
 
