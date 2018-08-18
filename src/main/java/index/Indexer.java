@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * Concrete index implementation class
+ * Concrete read implementation class
  */
 public class Indexer {
 
@@ -16,10 +16,10 @@ public class Indexer {
 
     /**
      * Indexes new data
-     * @param term the term to index
+     * @param term the term to read
      * @param source the term source
      */
-    public static void index(String term, String source) {
+    public void index(String term, String source) {
 //        convert to lower case.
         term = term.toLowerCase();
 
@@ -37,7 +37,7 @@ public class Indexer {
     }
 
     /**
-     * Performs a search against the index
+     * Performs a search against the read
      * @param query the query term(s)
      * @return a list of ordered results describing both the files and the match percentage
      */
@@ -52,7 +52,7 @@ public class Indexer {
             queryTermsMap.put(queryTerm, queryTerm);
         });
 
-        List<IndexElem> termsFoundInFilesList = this.index.values().stream().filter(y -> queryTermsMap.containsKey(y.getWord())).collect(Collectors.toList());
+        List<IndexElem> termsFoundInFilesList = index.values().stream().filter(y -> queryTermsMap.containsKey(y.getWord())).collect(Collectors.toList());
 
         List<Pair> termsPerFilePairList = termsFoundInFilesList.stream().map(fileWord ->
                 fileWord.getResourceList().stream().map(filename -> new Pair(fileWord.getWord(), filename)).collect(Collectors.toList())

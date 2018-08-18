@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Represents a inverted index element
+ * Represents a inverted read element
  * "the word x exists in this list of files"
  */
 public class IndexElem {

@@ -7,9 +7,9 @@ package index;
 public interface SourceReader {
 
     /**
-     * Starts this source index process
+     * Starts this source read process
      */
-    void index();
+    void read();
 
     /**
      * Sets this source indexer

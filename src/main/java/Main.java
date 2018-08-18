@@ -1,6 +1,6 @@
 import index.Indexer;
-import index.TextFileSourceReaderImpl;
 import index.SourceReader;
+import index.TextFileSourceReaderImpl;
 
 import java.util.Scanner;
 
@@ -23,7 +23,7 @@ public class Main {
         SourceReader sourceReader = new TextFileSourceReaderImpl();
         sourceReader.setIndexer(indexer);
         sourceReader.setSourceLocation(args[0]);
-        sourceReader.index();
+        sourceReader.read();
 
         Scanner keyboard = new Scanner(System.in);
         while (true) {
