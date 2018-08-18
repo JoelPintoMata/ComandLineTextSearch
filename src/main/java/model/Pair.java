@@ -4,12 +4,12 @@ package model;
 /**
  * <Key, Value> pair class
  */
-public class Pair {
+public class Pair<String, T> {
 
     private final String key;
-    private final String value;
+    private final T value;
 
-    public Pair(String key, String value) {
+    public Pair(String key, T value) {
         this.key = key;
         this.value = value;
     }
@@ -18,7 +18,7 @@ public class Pair {
         return key;
     }
 
-    public String getValue() {
+    public T getValue() {
         return this.value;
     }
 }

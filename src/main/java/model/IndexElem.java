@@ -4,33 +4,34 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Represents a inverted read element
- * "the word x exists in this list of files"
+ * Represents indexed element
+ *  in detail: "the term x exists in these sources"
  */
 public class IndexElem {
 
     private final Set<String> sourceSet = new HashSet<>();
-    private final String word;
+    private final String term;
 
-    public IndexElem(String filename, String word) {
-        this.sourceSet.add(filename);
-        this.word = word;
+    public IndexElem(String source, String term) {
+        this.sourceSet.add(source);
+        this.term = term;
     }
 
     /**
-     * Gets the list of resource names where a word is found
+     * Gets the list of sources where a term is found
+     *
      * Note: for immutability purposes this method returns a clone
-     * @return a list of resource names where a word is found
+     * @return a list of sources where a term is found
      */
     public Set<String> getResourceList() {
         return (HashSet) ((HashSet) sourceSet).clone();
     }
 
-    public String getWord() {
-        return word;
+    public String getTerm() {
+        return term;
     }
 
-    public void addFilename(String filename) {
-        this.sourceSet.add(filename);
+    public void addFilename(String source) {
+        this.sourceSet.add(source);
     }
 }

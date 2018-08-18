@@ -1,5 +1,6 @@
-package index;
+package sourceReader;
 
+import index.Indexer;
 import utils.FileUtils;
 
 import java.io.BufferedReader;
@@ -13,14 +14,14 @@ import java.util.List;
  */
 public class TextFileSourceReaderImpl implements SourceReader {
 
-    private final String TYPE = ".txt";
+    private final String sourceType = SourceTypeEnum.TEXT.getValue();
 
     private Indexer indexer;
     private String location;
 
     @Override
     public void read() {
-        List<String> filenames = FileUtils.getFiles(location, TYPE);
+        List<String> filenames = FileUtils.getFiles(location, sourceType);
         for (String filename : filenames) {
             try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
                 String line = br.readLine();

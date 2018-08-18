@@ -1,5 +1,7 @@
-package index;
+package sourceReader;
 
+
+import index.Indexer;
 
 /**
  * Data source reader interface

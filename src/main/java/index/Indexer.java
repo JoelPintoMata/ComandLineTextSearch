@@ -52,17 +52,17 @@ public class Indexer {
             queryTermsMap.put(queryTerm, queryTerm);
         });
 
-        List<IndexElem> termsFoundInFilesList = index.values().stream().filter(y -> queryTermsMap.containsKey(y.getWord())).collect(Collectors.toList());
+        List<IndexElem> termsFoundInFilesList = index.values().stream().filter(y -> queryTermsMap.containsKey(y.getTerm())).collect(Collectors.toList());
 
         List<Pair> termsPerFilePairList = termsFoundInFilesList.stream().map(fileWord ->
-                fileWord.getResourceList().stream().map(filename -> new Pair(fileWord.getWord(), filename)).collect(Collectors.toList())
+                fileWord.getResourceList().stream().map(filename -> new Pair(fileWord.getTerm(), filename)).collect(Collectors.toList())
         ).flatMap(Collection::stream).collect(Collectors.toList());
 //
         Map<String, Long> termsFoundPerFileMap = termsPerFilePairList
-                .stream().collect(Collectors.groupingBy(Pair::getValue, Collectors.counting()));
+                .stream().collect(Collectors.groupingBy(x -> (String) x.getValue(), Collectors.counting()));
 
         return termsFoundPerFileMap.entrySet().stream().map(x -> new Pair(x.getKey(), Long.toString(calculatesPercentage(x.getValue(), queryTermsArray))))
-                .sorted(Comparator.comparing(x -> x.getValue()))
+                .sorted(Comparator.comparing(x -> (String) x.getValue()))
                 .map(pair -> pair.getKey() + ": " + pair.getValue() + "%")
                 .collect(Collectors.toList());
     }

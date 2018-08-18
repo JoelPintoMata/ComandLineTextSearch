@@ -1,10 +1,6 @@
 
 /.idea/
 /ComandLineTextSearch.iml
-/src/test/resources/SampleTextFile_500kb.txt
-/src/test/resources/SampleTextFile_1000kb.txt
-/SampleTextFile_500kb.txt
-/SampleTextFile_1000kb.txt
 src/main/resources/
 target/ComandLineTextSearch-1.0-SNAPSHOT.jar
 target/classes/

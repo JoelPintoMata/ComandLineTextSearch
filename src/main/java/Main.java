@@ -1,6 +1,6 @@
 import index.Indexer;
-import index.SourceReader;
-import index.TextFileSourceReaderImpl;
+import sourceReader.SourceReader;
+import sourceReader.TextFileSourceReaderImpl;
 
 import java.util.Scanner;
 

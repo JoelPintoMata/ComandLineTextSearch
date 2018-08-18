@@ -1,12 +1,8 @@
 package model;
 
-import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runners.MethodSorters;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 public class IndexElemTest {
@@ -24,7 +20,7 @@ public class IndexElemTest {
 
     @Test
     void getWord() {
-        Assertions.assertEquals(this.indexElem.getWord(), "someWord");
+        Assertions.assertEquals(this.indexElem.getTerm(), "someWord");
     }
 
     @Test
