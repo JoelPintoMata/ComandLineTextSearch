@@ -34,9 +34,11 @@ public class RankTFxIDFImpl implements Ranker {
 
     /**
      * Ranks to pair according to TF*IDF
-     * @param pair1
-     * @param pair2
-     * @return
+     * @param pair1 the first pair
+     * @param pair2 the second pair
+     * @return a negative integer, or a positive integer as the
+     *         first argument is less than, equal to, or greater than the
+     *         second.
      */
     private int rankTFxIDF(Pair pair1, Pair pair2) {
 

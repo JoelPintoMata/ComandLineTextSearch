@@ -3,6 +3,7 @@ package index;
 import model.IndexElem;
 import model.Pair;
 import ranker.Ranker;
+import utils.MathUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -92,14 +93,14 @@ public class Indexer {
         rank.setNumberOfSources(numberOfSources);
         rank.setTF(tf);
 
-        return termsFoundPerFileMap.entrySet().stream().map(x -> new Pair(x.getKey(), calculatesPercentage(x.getValue(), queryTermsArray)))
+        return termsFoundPerFileMap.entrySet().stream().map(x -> new Pair(x.getKey(), getPercentage(x.getValue(), queryTermsArray)))
                 .sorted(rank.getComparator())
                 .map(pair -> pair.getKey() + ": " + pair.getValue() + "%")
                 .collect(Collectors.toList());
     }
 
-    private long calculatesPercentage(Long value, String[] queryTermsArray) {
-        return value * 100 / queryTermsArray.length;
+    private long getPercentage(Long value, String[] queryTermsArray) {
+        return (long) MathUtils.div(value * 100, queryTermsArray.length);
     }
 
     /**
