@@ -21,20 +21,23 @@ public class TextFileSourceReaderImpl implements SourceReader {
 
     @Override
     public void read() {
-        List<String> filenames = FileUtils.getFiles(location, sourceType);
-        for (String filename : filenames) {
+        List<String> filenameList = FileUtils.getFiles(location, sourceType);
+        for (String filename : filenameList) {
             try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
                 String line = br.readLine();
 
                 while (line != null) {
-                    Arrays.stream(line.split("[,. ]")).forEach(term -> this.indexer.index(term, filename));
+                    Arrays.stream(line.split("[,. ]")).forEach(term -> this.indexer.add(term, filename));
                     line = br.readLine();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println(filenames.size() + " files read in directory " + location);
+        System.out.println(filenameList.size() + " files read in directory " + location);
+
+//        set the number of sources read in the indexer for ranking purposes
+        indexer.setNumberOfSources(filenameList.size());
     }
 
     @Override

@@ -25,7 +25,7 @@ public class IndexElemTest {
 
     @Test
     void addSource() {
-        this.indexElem.addFilename("someOtherFilename");
-        Assertions.assertArrayEquals(this.indexElem.getResourceList().toArray(), new String[]{"someOtherFilename", "someFilename"});
+        this.indexElem.addSource("someOtherFilename");
+        Assertions.assertArrayEquals(this.indexElem.getSourceSet().toArray(), new String[]{"someOtherFilename", "someFilename"});
     }
 }

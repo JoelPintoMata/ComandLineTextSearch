@@ -1,4 +1,6 @@
 import index.Indexer;
+import ranker.Ranker;
+import ranker.RankTFxIDFImpl;
 import sourceReader.SourceReader;
 import sourceReader.TextFileSourceReaderImpl;
 
@@ -18,7 +20,10 @@ public class Main {
             throw new IllegalArgumentException("No directory given to indexer.");
         }
 
+        Ranker rankTFxIDF = new RankTFxIDFImpl();
+
         Indexer indexer = new Indexer();
+        indexer.setRank(rankTFxIDF);
 
         SourceReader sourceReader = new TextFileSourceReaderImpl();
         sourceReader.setIndexer(indexer);

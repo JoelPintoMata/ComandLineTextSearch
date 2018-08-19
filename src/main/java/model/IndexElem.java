@@ -23,7 +23,7 @@ public class IndexElem {
      * Note: for immutability purposes this method returns a clone
      * @return a list of sources where a term is found
      */
-    public Set<String> getResourceList() {
+    public Set<String> getSourceSet() {
         return (HashSet) ((HashSet) sourceSet).clone();
     }
 
@@ -31,7 +31,7 @@ public class IndexElem {
         return term;
     }
 
-    public void addFilename(String source) {
+    public void addSource(String source) {
         this.sourceSet.add(source);
     }
 }

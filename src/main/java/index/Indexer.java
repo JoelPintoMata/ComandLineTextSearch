@@ -2,6 +2,7 @@ package index;
 
 import model.IndexElem;
 import model.Pair;
+import ranker.Ranker;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -13,13 +14,17 @@ import java.util.stream.Collectors;
 public class Indexer {
 
     private static Map<String, IndexElem> index = new TreeMap<>();
+    private static Map<Pair<String, String>, Integer> tf = new HashMap<>();
+
+    private int numberOfSources;
+    private Ranker rank;
 
     /**
-     * Indexes new data
+     * Adds new data to the index
      * @param term the term to read
      * @param source the term source
      */
-    public void index(String term, String source) {
+    public void add(String term, String source) {
 //        convert to lower case.
         term = term.toLowerCase();
 
@@ -32,7 +37,25 @@ public class Indexer {
         if(oldVar == null) {
             index.put(term, indexElem);
         } else {
-            oldVar.addFilename(source);
+            oldVar.addSource(source);
+
+        }
+//        update the term tf
+        setTF(term, source);
+    }
+
+    /**
+     * Sets the term frequency for a given source
+     * @param term the term
+     * @param source the source
+     */
+    private void setTF(String term, String source) {
+        Pair pair = new Pair(term, source);
+        Integer i = tf.get(pair);
+        if(i == null)
+            tf.put(pair, 1);
+        else {
+            tf.put(pair, ++i);
         }
     }
 
@@ -52,22 +75,46 @@ public class Indexer {
             queryTermsMap.put(queryTerm, queryTerm);
         });
 
-        List<IndexElem> termsFoundInFilesList = index.values().stream().filter(y -> queryTermsMap.containsKey(y.getTerm())).collect(Collectors.toList());
+        List<IndexElem> termsFoundInFilesList = queryTermsMap.keySet().stream().map(queryTerm ->
+                index.get(queryTerm)
+        ).filter(x -> x != null).collect(Collectors.toList());
 
         List<Pair> termsPerFilePairList = termsFoundInFilesList.stream().map(fileWord ->
-                fileWord.getResourceList().stream().map(filename -> new Pair(fileWord.getTerm(), filename)).collect(Collectors.toList())
+                fileWord.getSourceSet().stream().map(filename -> new Pair(fileWord.getTerm(), filename)).collect(Collectors.toList())
         ).flatMap(Collection::stream).collect(Collectors.toList());
 //
         Map<String, Long> termsFoundPerFileMap = termsPerFilePairList
-                .stream().collect(Collectors.groupingBy(x -> (String) x.getValue(), Collectors.counting()));
+                .stream().collect(Collectors.groupingBy(x ->
+                        (String) x.getValue(), Collectors.counting()
+                ));
 
-        return termsFoundPerFileMap.entrySet().stream().map(x -> new Pair(x.getKey(), Long.toString(calculatesPercentage(x.getValue(), queryTermsArray))))
-                .sorted(Comparator.comparing(x -> (String) x.getValue()))
+        rank.setQueryTermsArray(queryTermsArray);
+        rank.setNumberOfSources(numberOfSources);
+        rank.setTF(tf);
+
+        return termsFoundPerFileMap.entrySet().stream().map(x -> new Pair(x.getKey(), calculatesPercentage(x.getValue(), queryTermsArray)))
+                .sorted(rank.getComparator())
                 .map(pair -> pair.getKey() + ": " + pair.getValue() + "%")
                 .collect(Collectors.toList());
     }
 
     private long calculatesPercentage(Long value, String[] queryTermsArray) {
         return value * 100 / queryTermsArray.length;
+    }
+
+    /**
+     * Sets the number of sources in this corpus
+     * @param numberOfSources number of sources in this corpus
+     */
+    public void setNumberOfSources(int numberOfSources) {
+        this.numberOfSources = this.numberOfSources + numberOfSources;
+    }
+
+    /**
+     * Sets this indexer ranker
+     * @param rank this indexer ranker
+     */
+    public void setRank(Ranker rank) {
+        this.rank = rank;
     }
 }
