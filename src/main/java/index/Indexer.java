@@ -4,6 +4,7 @@ import model.IndexElem;
 import model.Pair;
 import ranker.Ranker;
 import utils.MathUtils;
+import utils.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,8 +27,7 @@ public class Indexer {
      * @param source the term source
      */
     public void add(String term, String source) {
-//        convert to lower case.
-        term = term.toLowerCase();
+        term = StringUtils.sanitize(term);
 
         if(term.length() == 0)
             return;
@@ -72,7 +72,7 @@ public class Indexer {
 //        create a map of the query individual terms for fast search
         Map<String, String> queryTermsMap = new HashMap<>();
         Arrays.stream(queryTermsArray).forEach(queryTerm -> {
-            queryTerm = queryTerm.toLowerCase();
+            queryTerm = StringUtils.sanitize(queryTerm);
             queryTermsMap.put(queryTerm, queryTerm);
         });
 
@@ -80,8 +80,8 @@ public class Indexer {
                 index.get(queryTerm)
         ).filter(x -> x != null).collect(Collectors.toList());
 
-        List<Pair> termsPerFilePairList = termsFoundInFilesList.stream().map(fileWord ->
-                fileWord.getSourceSet().stream().map(filename -> new Pair(fileWord.getTerm(), filename)).collect(Collectors.toList())
+        List<Pair> termsPerFilePairList = termsFoundInFilesList.stream().map(indexElem ->
+                indexElem.getSourceSet().stream().map(filename -> new Pair(indexElem.getTerm(), filename)).collect(Collectors.toList())
         ).flatMap(Collection::stream).collect(Collectors.toList());
 //
         Map<String, Long> termsFoundPerFileMap = termsPerFilePairList
