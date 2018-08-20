@@ -81,7 +81,8 @@ public class Index {
         ).filter(x -> x != null).collect(Collectors.toList());
 
         List<Pair> termsPerFilePairList = termsFoundInFilesList.stream().map(indexElem ->
-                indexElem.getSourceSet().stream().map(filename -> new Pair(indexElem.getTerm(), filename)).collect(Collectors.toList())
+                indexElem.getSourceSet().stream().map(filename ->
+                        new Pair(indexElem.getTerm(), filename)).collect(Collectors.toList())
         ).flatMap(Collection::stream).collect(Collectors.toList());
 //
         Map<String, Long> termsFoundPerFileMap = termsPerFilePairList

@@ -5,6 +5,9 @@ import model.Pair;
 import java.util.Comparator;
 import java.util.Map;
 
+/**
+ * Ranking algorithms interface
+ */
 public interface Rank {
 
     void setQueryTermsArray(String[] queryTermsArray);
