@@ -12,6 +12,8 @@ import java.util.Scanner;
  */
 public class Main {
 
+    private static final long MAX_RESULTS = 10;
+
     /**
      * Commandline text search main method
      * @param args the initial arguments
@@ -41,7 +43,7 @@ public class Main {
 
             List<String> result = index.search(line);
             if (result.size() > 0)
-                result.stream().forEach(System.out::println);
+                result.stream().limit(MAX_RESULTS).forEach(System.out::println);
             else
                 System.out.println("no matches found");
         }
