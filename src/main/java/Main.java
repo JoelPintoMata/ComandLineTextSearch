@@ -4,6 +4,7 @@ import rank.RankTFxIDFImpl;
 import sourceReader.SourceReader;
 import sourceReader.TextFileSourceReaderImpl;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -34,10 +35,15 @@ public class Main {
         while (true) {
             System.out.print("search> ");
             String line = keyboard.nextLine();
+
             if(line.equals(":quit"))
                 return;
 
-            index.search(line).stream().forEach(System.out::println);
+            List<String> result = index.search(line);
+            if (result.size() > 0)
+                result.stream().forEach(System.out::println);
+            else
+                System.out.println("no matches found");
         }
     }
 }
