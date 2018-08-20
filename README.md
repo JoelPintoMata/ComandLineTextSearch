@@ -19,6 +19,10 @@ $ mvn package
 ```bash
 $ mvn compile && mvn package && java -jar ./target/*.jar .
 ```
+, for example:
+```bash
+$ mvn compile && mvn package && java -jar ./target/*.jar ./<read_from_here>
+```
 
 ### To run the tests:
 ```bash

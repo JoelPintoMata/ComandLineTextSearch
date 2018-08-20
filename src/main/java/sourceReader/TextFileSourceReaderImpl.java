@@ -23,7 +23,7 @@ public class TextFileSourceReaderImpl implements SourceReader {
     public void read() {
         List<String> filenameList = FileUtils.getFiles(location, sourceType);
         for (String filename : filenameList) {
-            try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            try (BufferedReader br = new BufferedReader(new FileReader(location + "/" + filename))) {
                 String line = br.readLine();
 
                 while (line != null) {
