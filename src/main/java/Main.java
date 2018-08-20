@@ -1,6 +1,6 @@
-import index.Indexer;
-import ranker.Ranker;
-import ranker.RankTFxIDFImpl;
+import index.Index;
+import rank.Rank;
+import rank.RankTFxIDFImpl;
 import sourceReader.SourceReader;
 import sourceReader.TextFileSourceReaderImpl;
 
@@ -17,16 +17,16 @@ public class Main {
      */
     public static void main(String[] args) {
         if (args.length == 0) {
-            throw new IllegalArgumentException("No directory given to indexer.");
+            throw new IllegalArgumentException("No directory given to index.");
         }
 
-        Ranker rankTFxIDF = new RankTFxIDFImpl();
+        Rank rankTFxIDF = new RankTFxIDFImpl();
 
-        Indexer indexer = new Indexer();
-        indexer.setRank(rankTFxIDF);
+        Index index = new Index();
+        index.setRank(rankTFxIDF);
 
         SourceReader sourceReader = new TextFileSourceReaderImpl();
-        sourceReader.setIndexer(indexer);
+        sourceReader.setIndex(index);
         sourceReader.setSourceLocation(args[0]);
         sourceReader.read();
 
@@ -37,7 +37,7 @@ public class Main {
             if(line.equals(":quit"))
                 return;
 
-            indexer.search(line).stream().forEach(System.out::println);
+            index.search(line).stream().forEach(System.out::println);
         }
     }
 }

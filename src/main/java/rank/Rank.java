@@ -1,11 +1,11 @@
-package ranker;
+package rank;
 
 import model.Pair;
 
 import java.util.Comparator;
 import java.util.Map;
 
-public interface Ranker {
+public interface Rank {
 
     void setQueryTermsArray(String[] queryTermsArray);
 

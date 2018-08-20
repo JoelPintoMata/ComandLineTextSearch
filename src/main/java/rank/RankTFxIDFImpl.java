@@ -1,16 +1,18 @@
-package ranker;
+package rank;
 
 import model.Pair;
 import utils.MathUtils;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Map;
 
 
 /**
  * Concrete ranking class
  * For more details check: https://www.elephate.com/blog/what-is-tf-idf/
  */
-public class RankTFxIDFImpl implements Ranker {
+public class RankTFxIDFImpl implements Rank {
 
     private Map<Pair<String, String>, Integer> tf;
 

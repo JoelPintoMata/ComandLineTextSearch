@@ -1,7 +1,7 @@
 package sourceReader;
 
 
-import index.Indexer;
+import index.Index;
 
 /**
  * Data source reader interface
@@ -14,10 +14,10 @@ public interface SourceReader {
     void read();
 
     /**
-     * Sets this source indexer
-     * @param indexer an indexer
+     * Sets this source index
+     * @param index an index
      */
-    void setIndexer(Indexer indexer);
+    void setIndex(Index index);
 
     /**
      * Sets this source location

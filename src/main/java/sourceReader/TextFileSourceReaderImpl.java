@@ -1,6 +1,6 @@
 package sourceReader;
 
-import index.Indexer;
+import index.Index;
 import utils.FileUtils;
 
 import java.io.BufferedReader;
@@ -16,7 +16,7 @@ public class TextFileSourceReaderImpl implements SourceReader {
 
     private final String sourceType = SourceTypeEnum.TEXT.getValue();
 
-    private Indexer indexer;
+    private Index index;
     private String location;
 
     @Override
@@ -27,7 +27,7 @@ public class TextFileSourceReaderImpl implements SourceReader {
                 String line = br.readLine();
 
                 while (line != null) {
-                    Arrays.stream(line.split("[,. ]")).forEach(term -> this.indexer.add(term, filename));
+                    Arrays.stream(line.split("[,. ]")).forEach(term -> this.index.add(term, filename));
                     line = br.readLine();
                 }
             } catch (IOException e) {
@@ -36,13 +36,13 @@ public class TextFileSourceReaderImpl implements SourceReader {
         }
         System.out.println(filenameList.size() + " files read in directory " + location);
 
-//        set the number of sources read in the indexer for ranking purposes
-        indexer.setNumberOfSources(filenameList.size());
+//        set the number of sources read in the index for ranking purposes
+        index.setNumberOfSources(filenameList.size());
     }
 
     @Override
-    public void setIndexer(Indexer indexer) {
-        this.indexer = indexer;
+    public void setIndex(Index index) {
+        this.index = index;
     }
 
     @Override

@@ -2,7 +2,7 @@ package index;
 
 import model.IndexElem;
 import model.Pair;
-import ranker.Ranker;
+import rank.Rank;
 import utils.MathUtils;
 import utils.StringUtils;
 
@@ -13,13 +13,13 @@ import java.util.stream.Collectors;
 /**
  * Concrete read implementation class
  */
-public class Indexer {
+public class Index {
 
     private static Map<String, IndexElem> index = new TreeMap<>();
     private static Map<Pair<String, String>, Integer> tf = new HashMap<>();
 
     private int numberOfSources;
-    private Ranker rank;
+    private Rank rank;
 
     /**
      * Adds new data to the index
@@ -112,10 +112,10 @@ public class Indexer {
     }
 
     /**
-     * Sets this indexer ranker
-     * @param rank this indexer ranker
+     * Sets this index rank
+     * @param rank this index rank
      */
-    public void setRank(Ranker rank) {
+    public void setRank(Rank rank) {
         this.rank = rank;
     }
 }

@@ -1,4 +1,4 @@
-package ranker;
+package rank;
 
 import model.Pair;
 import org.junit.jupiter.api.Assertions;
@@ -7,16 +7,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class RankTFxIDFImplTest {
 
-    Ranker ranker = new RankTFxIDFImpl();
+    Rank rank = new RankTFxIDFImpl();
 
     @BeforeEach
     void setUp() {
-        this.ranker.setNumberOfSources(5);
-        this.ranker.setQueryTermsArray(new String[]{"one", "two", "three", "four", "five"});
+        this.rank.setNumberOfSources(5);
+        this.rank.setQueryTermsArray(new String[]{"one", "two", "three", "four", "five"});
         Map<Pair<String, String>, Integer> map = new HashMap<>();
         Pair pair = new Pair("one", "one.txt");
         map.put(pair, 1);
@@ -47,13 +45,13 @@ class RankTFxIDFImplTest {
         pair = new Pair("one", "five.txt");
         map.put(pair, 1);
 
-        this.ranker.setTF(map);
+        this.rank.setTF(map);
     }
 
     @Test
-    void rankerTest() {
+    void rankTest() {
 
-        Comparator<? super Pair> comparator = this.ranker.getComparator();
+        Comparator<? super Pair> comparator = this.rank.getComparator();
 
         List<Pair> list = new ArrayList<>();
         list.add(new Pair("one.txt", (long)100));
