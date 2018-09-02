@@ -21,4 +21,11 @@ public interface Rank {
      * @return the ranking algorithm comparator
      */
     Comparator<? super Pair> getComparator();
+
+    /**
+     * Sets the term frequency for a given source
+     * @param term the term
+     * @param source the source
+     */
+    void addTF(String term, String source);
 }

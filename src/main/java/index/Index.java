@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 public class Index {
 
     private static Map<String, IndexElem> index = new TreeMap<>();
-    private static Map<Pair<String, String>, Integer> tf = new HashMap<>();
 
     private int numberOfSources;
     private Rank rank;
@@ -42,22 +41,7 @@ public class Index {
 
         }
 //        update the term tf
-        setTF(term, source);
-    }
-
-    /**
-     * Sets the term frequency for a given source
-     * @param term the term
-     * @param source the source
-     */
-    private void setTF(String term, String source) {
-        Pair pair = new Pair(term, source);
-        Integer i = tf.get(pair);
-        if(i == null)
-            tf.put(pair, 1);
-        else {
-            tf.put(pair, ++i);
-        }
+        rank.addTF(term, source);
     }
 
     /**
@@ -76,15 +60,18 @@ public class Index {
             queryTermsMap.put(queryTerm, queryTerm);
         });
 
+        // list of objects detailing the sources where a term can be found
         List<IndexElem> termsFoundInFilesList = queryTermsMap.keySet().stream().map(queryTerm ->
                 index.get(queryTerm)
         ).filter(x -> x != null).collect(Collectors.toList());
 
+        // list of pairs <term a, present in file b>
         List<Pair> termsPerFilePairList = termsFoundInFilesList.stream().map(indexElem ->
                 indexElem.getSourceSet().stream().map(filename ->
                         new Pair(indexElem.getTerm(), filename)).collect(Collectors.toList())
         ).flatMap(Collection::stream).collect(Collectors.toList());
-//
+
+        // list of pairs <term a, in file b>
         Map<String, Long> termsFoundPerFileMap = termsPerFilePairList
                 .stream().collect(Collectors.groupingBy(x ->
                         (String) x.getValue(), Collectors.counting()
@@ -92,7 +79,6 @@ public class Index {
 
         rank.setQueryTermsArray(queryTermsArray);
         rank.setNumberOfSources(numberOfSources);
-        rank.setTF(tf);
 
         return termsFoundPerFileMap.entrySet().stream().map(x -> new Pair(x.getKey(), getPercentage(x.getValue(), queryTermsArray)))
                 .sorted(rank.getComparator())
