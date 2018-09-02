@@ -8,7 +8,9 @@ import java.util.*;
 
 /**
  * Concrete ranking class
- * For more details check: https://www.elephate.com/blog/what-is-tf-idf/
+ * For more details check:
+ *  https://www.elephate.com/blog/what-is-tf-idf/
+ *  https://medium.freecodecamp.org/how-to-process-textual-data-using-tf-idf-in-python-cd2bbc0a94a3
  */
 public class RankTFxIDFImpl implements Rank {
 
