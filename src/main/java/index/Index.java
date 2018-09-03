@@ -15,7 +15,8 @@ import java.util.stream.Collectors;
  */
 public class Index {
 
-    private static Map<String, IndexElem> index = new TreeMap<>();
+    private Map<String, IndexElem> index = new HashMap<>();
+    private Map<Pair<String, String>, Integer> tf = new HashMap<>();
 
     private int numberOfSources;
     private Rank rank;
